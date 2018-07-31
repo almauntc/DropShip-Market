@@ -14,24 +14,31 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-/*
-
-
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'DropshipperController@index');
+Route::get('/login', 'DropshipperController@login');
+Route::match(['get','post'],'/loginPost', 'DropshipperController@loginPost');
+Route::get('/register', 'DropshipperController@register');
+Route::get('/registerPost', 'DropshipperController@registerPost');
 
-Auth::routes();
+Route::group(['middleware'=>['auth']],function(){
+//Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/home', 'HomeController@index')->name('home');
-*/
+
+});
+Route::get('/logouthome', 'DropshipperController@logout');
+
+
+
+//Admin
 Route::match(['get','post'],'/admin','AdminController@login');
 
-Auth::routes();
+//Category/Listing Page
+Route::get('products/{url}','ProductsController@products');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Category Detail Product
+Route::get('/product/{id}', 'ProductsController@product');
 
 Route::group(['middleware' => ['auth']],function(){
 	Route::get('/admin/dashboard','AdminController@dashboard');
@@ -39,24 +46,38 @@ Route::group(['middleware' => ['auth']],function(){
 	Route::get('/admin/check-pwd','AdminController@chkPassword');
 	Route::match(['get','post'],'/admin/update-pwd','AdminController@updatePassword');
 
-	Route::get('/admin/supplier-management/supplier','AdminController@supplier');
-	Route::get('/admin/supplier-management/supplier/newSupplier','AdminController@newSupplier');
+	//Supplier Route (Admin)
+	Route::get('/admin/supplier-management/supplier','SupplierController@supplier');
+	Route::match(['get','post'],'/admin/supplier-management/supplier/newSupplier','SupplierController@newSupplier');
+	Route::match(['get', 'post'],'/admin/supplier-management/supplier/editSupplier/{id}','SupplierController@editSupplier');
+	Route::match(['get', 'post'],'/admin/supplier-management/supplier/deleteSupplier/{id}','SupplierController@deleteSupplier');
 
-	Route::get('/admin/supplier-management/products','AdminController@products');
-	Route::get('/admin/supplier-management/products/newProducts','AdminController@newProducts');
+	//Product Ruoute (Admin)
+	Route::get('/admin/products','ProductsController@products');
+	Route::match(['get','post'],'/admin/products/newProducts','ProductsController@newProducts');
+	Route::match(['get', 'post'],'/admin/products/editProducts/{id}','ProductsController@editProducts');
+	Route::get('/admin/products/deleteProducts/{id}','ProductsController@deleteProducts');
+	Route::get('/admin/products/deleteProducts-image/{id}','ProductsController@deleteProductsImage');
 
-	Route::get('/admin/customer-management/customer','AdminController@customer');
-	Route::get('/admin/customer-management/customer/newCustomer','AdminController@newCustomer');
+	//Dropshipper Route (Admin)
+	Route::get('/admin/dropshipper-management/dropshipper','DropshipperController@dropshipper');
+	Route::get('/admin/dropshipper-management/dropshipper/newDropshipper','DropshipperController@newDropshipper');
 	
-	Route::get('/admin/customer-management/order','AdminController@order');
-	Route::get('/admin/customer-management/order/newOrder','AdminController@newOrder');
-
-	Route::get('/admin/sales','AdminController@sales');
-	Route::get('/admin/sales/newSales','AdminController@newSales');
-
-	Route::get('/admin/comission','AdminController@comission');
+	//Transactions Route (Admin)
+	Route::get('/admin/dropshipper-management/transactions','AdminController@transactions');
+	Route::get('/admin/dropshipper-management/transactons/newTransaksi','AdminController@newTransactions');
 
 
+	//Category Route (Admin)
+	Route::get('/admin/category','CategoryController@category');
+	Route::match(['get','post'], '/admin/category/newCategory', 'CategoryController@newCategory');
+	Route::match(['get', 'post'],'/admin/category/editCategory/{id}','CategoryController@editCategory');
+	Route::match(['get', 'post'],'/admin/category/deleteCategory/{id}','CategoryController@deleteCategory');
+
+	//Products Attributes Route
+	Route::get('/admin/product-attributes','ProductsController@attributes');
+	Route::match(['get', 'post'], '/admin/product-attributes/newAtrributes/{id}','ProductsController@newAttributes');
+	Route::get('/admin/products-attributes/deleteAttributes/{id}','ProductsController@deleteAttributes');
 });
 
 Route::get('/logout','AdminController@logout');

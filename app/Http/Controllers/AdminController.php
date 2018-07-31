@@ -62,39 +62,14 @@ class AdminController extends Controller
     }
 
 
-    //Supplier
-     public function supplier(){
-        return view('admin.supplier-management.supplier.index');
+    
+
+     public function transactions(){
+        return view('admin.dropshipper-management.transactions.index');
     }
 
-    public function newSupplier(){
-        return view('admin.supplier-management.supplier.create');
-    }
-
-     public function products(){
-        return view('admin.supplier-management.products.index');
-    }
-
-    public function newProducts(){
-        return view('admin.supplier-management.products.create');
-    }
-
-
-    //Customer
-     public function customer(){
-        return view('admin.customer-management.customer.index');
-    }
-
-    public function newCustomer(){
-        return view('admin.customer-management.customer.create');
-    }
-
-     public function order(){
-        return view('admin.customer-management.order.index');
-    }
-
-    public function newOrder(){
-        return view('admin.customer-management.order.create');
+    public function newTransactions(){
+        return view('admin.dropshipper-management.transactions.create');
     }
 
     //Sales
@@ -106,10 +81,7 @@ class AdminController extends Controller
         return view('admin.sales.create');
     }
 
-    //Comission
-     public function comission(){
-        return view('admin.comission');
-    }
+    
 
     //Logout
     public function logout(){

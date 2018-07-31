@@ -16,28 +16,28 @@
 
                     <div class="card-body">
                       
-                      <form class="forms-sample"  method="post" action="" name="" id="" novalidate="novalidate">{{ csrf_field() }}
+                      <form class="forms-sample"  method="post" action="{{ url('/admin/supplier-management/supplier/newSupplier') }}" name="newSupplier" id="newSupplier" novalidate="novalidate">{{ csrf_field() }}
                         <div class="form-group">
-                          <label for="#">Name Supplier</label>
-                          <input type="text"  class="form-control" name="" id="" placeholder="">
+                          <label for="name">Name Supplier</label>
+                          <input type="text"  class="form-control" name="name" id="name" required class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label for="#">Address</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="">
+                          <label for="address">Address</label>
+                          <input type="text" class="form-control" name="address" id="address" required class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label for="#">Phone Number</label>
-                          <input type="text" class="form-control" name="" id="" placeholder="">
+                          <label for="phone">Phone Number</label>
+                          <input type="text" class="form-control" name="phone" id="phone" required class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label for="#">Email</label>
-                          <input type="email" class="form-control" name="" id="" placeholder="">
+                          <label for="email">Email</label>
+                          <input type="email" class="form-control" name="email" id="email" required class="form-control" placeholder="">
                         </div>
                         <button type="submit" class="btn btn-success mr-2">Submit</button>
                        <!-- <button class="btn btn-light">Cancel</button> -->
 
                         <p class="card-description"></p>
-                      <div class="text-block text-center my-3">
+                       <div class="text-block text-center my-3">
                         @if(Session::has('flash_message_error'))
                             <div class="alert alert-error alert-block">
                                 <button type="button" class="close" data-dismiss="alert">×</button> 

@@ -14,7 +14,7 @@
                 <div class="card-body">
                   <div class="clearfix">
                     <div class="float-left">
-                      <i class="mdi mdi-cube text-light icon-lg"></i>
+                      <i class="mdi mdi-chart text-light icon-lg"></i>
                     </div>
                     <div class="float-right">
                       <p class="mb-0 text-right text-white">Total Commision</p>
