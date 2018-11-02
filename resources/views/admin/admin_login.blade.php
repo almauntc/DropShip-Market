@@ -5,7 +5,7 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>A Market</title>
+  <title>Admin | E-DROPSHIP</title>
   <!-- plugins:css -->
   <link rel="stylesheet" href="{{ asset('css/backend_css/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}" />
   <link rel="stylesheet" href="{{ asset('css/backend_css/vendors/iconfonts/puse-icons-feather/feather.css') }}" />
@@ -17,10 +17,10 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('css/backend_css/style.css') }}"/>
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('images/backend_images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('images/backend_images/logo.png') }}" />
   <style>
   .auth.auth-bg-1 {
-  background: url("{{ asset('images/backend_images/login_1.jpg') }}");
+  background: url("{{ asset('images/backend_images/login_2.gif') }}");
   background-size: cover; }
 
   h2{
@@ -35,10 +35,11 @@
       <div class="content-wrapper d-flex align-items-center auth auth-bg-1 theme-one">
         <div class="row w-100">
           <div class="col-lg-4 mx-auto">
-             <h2 class="text-center mb-4">Login Admin</h2>
+             
             <div class="auto-form-wrapper">
               <form method="post" action="{{ url('admin') }}"> {{ csrf_field() }}
                 <div class="form-group">
+                  <h2 style="color:#000;" class="text-center mb-4">Login Admin</h2>
                   <label class="label">Email</label>
                   <div class="input-group">
                     <input type="email" class="form-control" placeholder="Email" name="email">

@@ -51,4 +51,45 @@
 			window.location.href="/admin/"+deleteFunction+"/"+id;
 		});
 	});
+	
+	$("#current_pwd").keyup(function(){
+		var current_pwd = $("#current_pwd").val();
+		$.ajax({
+			type:'get',
+			url:'/admin/check-pwd',
+			data:{current_pwd:current_pwd},
+			success:function(resp){
+				//alert(resp);
+				if(resp=="false"){
+					$("#chkPwd").html("<font color='red'>Current Password is Incorrect</font>");
+				}else if(resp=="true"){
+					$("#chkPwd").html("<font color='green'>Current Password is Correct</font>");
+				}
+			},error:function(){
+				alert("Error");
+			}
+		});
+	});
+	
+	$("#delCat").click(function(){
+	if(confirm('Are you sure you want to delete this Category?')){
+		return true;
+		}
+		return false;
+	});
+	
+	$("#delAt").click(function(){
+	if(confirm('Are you sure you want to delete this Attribute?')){
+		return true;
+		}
+		return false;
+	});
+	
+	$("#delPro").click(function(){
+	if(confirm('Are you sure you want to delete this Product?')){
+		return true;
+		}
+		return false;
+	});
+
 })(jQuery);

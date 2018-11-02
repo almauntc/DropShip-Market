@@ -50,7 +50,7 @@
                             Category Name
                           </th>
                            <th>
-                            Category Level
+                            <center>Category<br>Level</center>
                           </th>
                           <th>
                             Description

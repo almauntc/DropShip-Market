@@ -40,10 +40,6 @@
                           <input type="text" class="form-control" name="color_product" id="color_product" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label for="stok">Stock</label>
-                          <input type="text" class="form-control" name="stok" id="stok" placeholder="">
-                        </div>
-                        <div class="form-group">
                           <label for="desc">Description</label>
                           <textarea class="form-control" name="desc" id="desc" placeholder=""></textarea>
                         </div>

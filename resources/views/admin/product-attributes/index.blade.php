@@ -67,7 +67,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($attributes as $attribute)
+                        @foreach($product as $attribute)
                        <tr>
                        
                           <td>{{ $attribute->product_id}}</td>
@@ -80,8 +80,8 @@
                          
                           <td>
                             <div class="hidden-sm hidden-xs btn-group">
-                             <a rel="{{ $attribute->id }}" rel1="deleteAttributes" href="javascript:">
-                              <button class="btn btn-xs btn-danger deleteRecord">
+                             <a id="delCat" href="{{ url('/admin/products-attributes/deleteAttributes/' .$attribute->id) }}">
+                              <button class="btn btn-xs btn-danger">
                                 <b><i>Delete</i></b>
                               </button></a>
                             </div>      

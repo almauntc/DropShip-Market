@@ -17,7 +17,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{ asset('images/frontend_images/ico/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/frontend_images/logo.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/frontend_images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/frontend_images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/frontend_images/ico/apple-touch-icon-72-precomposed.png') }}">
@@ -31,8 +31,6 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> edropship@ds.com</a></li>
 							</ul>
 						</div>
 					</div>
@@ -87,20 +85,14 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ url('/home') }}" class="active">Beranda</a></li>
-								<li class="dropdown"><a href="#">Layanan<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Dropshipper</a></li>
-										<li><a href="checkout.html">Supplier</a></li> 
-                                    </ul>
-                                </li>
                                 <li class="dropdown"><a href="#">Produk<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Pakaian</a></li>
-										<li><a href="checkout.html">Sepatu</a></li>
-										<li><a href="checkout.html">Komputer</a></li> 
+                                     <ul role="menu" class="sub-menu">
+                                        <li><a href="{{url('/products/pakaian')}}">Pakaian</a></li>
+										<li><a href="{{url('/products/sepatu')}}">Sepatu</a></li>
+										<li><a href="{{url('/products/komputer')}}">Komputer</a></li> 
                                     </ul>
                                 </li>
-								<li><a href="contact-us.html">Kontak</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -146,7 +138,7 @@
 									<button type="button" class="btn btn-default get">Jual Sekarang</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="{{ asset('images/frontend_images/home/girl2.jpg') }}" class="girl img-responsive" alt="" />
+									<img src="{{ asset('images/frontend_images/home/girl2.png') }}" class="girl img-responsive" alt="" />
 									
 								</div>
 							</div>
@@ -159,7 +151,7 @@
 									<button type="button" class="btn btn-default get">Jual Sekarang</button>
 								</div>
 								<div class="col-sm-6">
-									<img src="{{ asset('images/frontend_images/home/girl3.jpg') }}" class="girl img-responsive" alt="" />
+									<img src="{{ asset('images/frontend_images/home/girl3.png') }}" class="girl img-responsive" alt="" />
 									
 								</div>
 							</div>

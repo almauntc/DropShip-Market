@@ -17,7 +17,7 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{ asset('images/frontend_images/ico/favicon.ico') }}">
+    <link rel="shortcut icon" href="{{ asset('images/frontend_images/logo.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/frontend_images/ico/apple-touch-icon-144-precomposed.png')}}">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/frontend_images/ico/apple-touch-icon-114-precomposed.png') }}">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/frontend_images/ico/apple-touch-icon-72-precomposed.png') }}">
@@ -30,8 +30,7 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> edropship@ds.com</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -55,7 +54,7 @@
 				<div class="row">
 					<div class="col-sm-4">
 						<div class="logo pull-left">
-							<a href="{{ url('/home') }}"><img src="{{ asset('images/frontend_images/home/logo.png') }}" alt="" /></a>
+							<a href="{{ url('/') }}"><img src="{{ asset('images/frontend_images/home/logo.png') }}" alt="" /></a>
 						</div>
 						<div class="btn-group pull-right">
 						</div>
@@ -86,20 +85,14 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ url('/home') }}" class="active">Beranda</a></li>
-								<li class="dropdown"><a href="#">Layanan<i class="fa fa-angle-down"></i></a>
-                                    <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Dropshipper</a></li>
-										<li><a href="checkout.html">Supplier</a></li> 
-                                    </ul>
-                                </li>
                                 <li class="dropdown"><a href="#">Produk<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Pakaian</a></li>
-										<li><a href="checkout.html">Sepatu</a></li>
-										<li><a href="checkout.html">Komputer</a></li> 
+                                          <li><a href="{{url('/products/pakaian')}}">Pakaian</a></li>
+										<li><a href="{{url('/products/sepatu')}}">Sepatu</a></li>
+										<li><a href="{{url('/products/komputer')}}">Komputer</a></li> 
                                     </ul>
                                 </li>
-								<li><a href="contact-us.html">Kontak</a></li>
+								
 							</ul>
 						</div>
 					</div>
@@ -130,10 +123,9 @@
 				<div class="col-sm-4 col-sm-offset-1">
 					<div class="login-form"><!--login form-->
 						<h2>Login to your account</h2>
-						<form action="{{ url('/loginPost') }}" method="post"> {{ csrf_field() }}
-							<input type="name" class="form-control" id="name" name="name" placeholder="Name"/>
-							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address" />
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password" />
+						<form action="{{ url('/loginPost/') }}" method="post"> {{ csrf_field() }}
+							<input type="email" class="form-control" id="email" name="email" placeholder="Email" />
+							<input type="password" class="form-control" id="password" name="password" placeholder="Password" />							
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in
@@ -149,11 +141,13 @@
 					<div class="signup-form"><!--sign up form-->
 						<h2>New User Signup!</h2>
 						<form action="{{ url('/registerPost')}}">{{ csrf_field() }}
-							<input type="name" class="form-control" id="name" name="name" placeholder="Name"/>
-							<input type="email" class="form-control" id="email" name="email" placeholder="Email Address"/>
-							<input type="text" class="form-control" id="handphone" name="handphone" placeholder="Handphone"/>
-							<input type="password" class="form-control" id="password" name="password" placeholder="Password"/>
-							<input type="password" class="form-control" id="confirmation" name="confirmation" placeholder="Password Confirmation"/>
+							<input type="name" class="form-control" required="required" id="name" name="name" placeholder="Nama"/>
+							<input type="email" class="form-control" required="required" id="email" name="email" placeholder="Email"/>
+							<input type="text" class="form-control" required="required" id="handphone" name="handphone" placeholder="Handphone"/>
+							<input type="text" class="form-control" required="required" id="bank_account_number" name="bank_account_number" placeholder="No. Rekening Mandiri"/>
+							<textarea name="address" id="address" required="required" class="form-control" rows="4" placeholder="Alamat"></textarea><br>
+							<input type="password" class="form-control" required="required" id="password" name="password" placeholder="Password"/>
+							<input type="password" class="form-control" required="required" id="confirmation" name="confirmation" placeholder="Password Confirmation"/>
 							<button type="submit" class="btn btn-default">Signup</button>
 						</form>
 					</div><!--/sign up form-->

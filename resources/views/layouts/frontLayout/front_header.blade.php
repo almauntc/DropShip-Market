@@ -5,8 +5,6 @@
 					<div class="col-sm-6">
 						<div class="contactinfo">
 							<ul class="nav nav-pills">
-								<li><a href="#"><i class="fa fa-phone"></i> +2 95 01 88 821</a></li>
-								<li><a href="#"><i class="fa fa-envelope"></i> edropship@ds.com</a></li>
 							</ul>
 						</div>
 					</div>
@@ -24,7 +22,6 @@
 				</div>
 			</div>
 		</div><!--/header_top-->
-		
 		<div class="header-middle"><!--header-middle-->
 			<div class="container">
 				<div class="row">
@@ -38,7 +35,7 @@
 					<div class="col-sm-8">
 						<div class="shop-menu pull-right">
 							<ul class="nav navbar-nav">
-								<li><a href="cart.html"><i class="fa fa-shopping-cart"></i>Produk Saya</a></li>
+								<li><a href="{{ url('/produk-saya') }}"><i class="fa fa-shopping-cart"></i>Produk Saya</a></li>
 								<li><a href="{{ url('/login') }}"><i class="fa fa-user"></i> {{ Session::get('name') }}</a></li>
 								<li><a href="{{ url('/logouthome') }}"><i class="fa fa-sign-out"></i>Logout</a></li>
 							</ul>
@@ -63,20 +60,20 @@
 						<div class="mainmenu pull-left">
 							<ul class="nav navbar-nav collapse navbar-collapse">
 								<li><a href="{{ url('/home') }}" class="active">Beranda</a></li>
-								<li class="dropdown"><a href="#">Layanan<i class="fa fa-angle-down"></i></a>
+								<li class="dropdown"><a href="#">Produk<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Dropshipper</a></li>
-										<li><a href="checkout.html">Supplier</a></li> 
+                                        <li><a href="{{url('/products/pakaian')}}">Pakaian</a></li>
+										<li><a href="{{url('/products/sepatu')}}">Sepatu</a></li>
+										<li><a href="{{url('/products/komputer')}}">Komputer</a></li> 
                                     </ul>
                                 </li>
-                                <li class="dropdown"><a href="#">Produk<i class="fa fa-angle-down"></i></a>
+                                <li class="dropdown"><a href="#">Manajemen<i class="fa fa-angle-down"></i></a>
                                     <ul role="menu" class="sub-menu">
-                                        <li><a href="shop.html">Pakaian</a></li>
-										<li><a href="checkout.html">Sepatu</a></li>
-										<li><a href="checkout.html">Komputer</a></li> 
+                                        <li><a href="{{ url('/produk-saya') }}">Produk Saya</a></li>
+										<li><a href="{{ url('/penjualan-produk')}}">Cek Penjualan Produk</a></li>
+										<li><a href="{{ url('/profit-chart')}}">Profit Chart</a></li> 
                                     </ul>
                                 </li>
-								<li><a href="contact-us.html">Kontak</a></li>
 							</ul>
 						</div>
 					</div>

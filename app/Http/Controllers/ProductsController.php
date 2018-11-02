@@ -6,9 +6,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use Auth;
 use Intervention\Image\Facades\Image as Image;
+use Illuminate\Support\Facades\Session;
 use App\Product;
 use App\Category;
-use App\productsAttribute;
+use App\UserDropshipper;
+use App\ProductsAttribute;
+use App\Cart;
 
 class ProductsController extends Controller
 {
@@ -28,7 +31,6 @@ class ProductsController extends Controller
     		$product->name_product = $data['name_product'];
     		$product->code_product = $data['code_product'];
             $product->color_product = $data['color_product'];
-            $product->stok = $data['stok'];
     		if(!empty($data['desc'])){
     			$product->desc = $data['desc'];
     		}else{
@@ -79,6 +81,7 @@ class ProductsController extends Controller
     public function products(Request $request){
     	 $product = Product::get();
          $product = json_decode(json_encode($product));
+       
          foreach ($product as $key => $val) {
              $name_category = Category::where(['id'=>$val->id_category])->first();
              $product[$key]->name_category = $name_category->name;
@@ -101,8 +104,7 @@ class ProductsController extends Controller
             }
         }
         // Categories dropdown ends
-
-        if($request->isMethod('post')){
+             if($request->isMethod('post')){
             $data = $request->all();
             
             //Upload Image
@@ -132,14 +134,14 @@ class ProductsController extends Controller
                 $data['desc']='';
             }
 
-            Product::where(['id'=>$id])->update(['id_category'=>$data['id_category'],'name_product'=>$data['name_product'],'code_product'=>$data['code_product'],'color_product'=>$data['color_product'],'stok'=>$data['stok'],'desc'=>$data['desc'],'price_retail'=>$data['price_retail'],'price_reseller'=>$data['price_reseller'],'profit'=>$data['profit'],'image'=>$filename]);
+            Product::where(['id'=>$id])->update(['id_category'=>$data['id_category'],'name_product'=>$data['name_product'],'code_product'=>$data['code_product'],'color_product'=>$data['color_product'],'desc'=>$data['desc'],'price_retail'=>$data['price_retail'],'price_reseller'=>$data['price_reseller'],'profit'=>$data['profit'],'image'=>$filename]);
             return redirect('/admin/products')->with('flash_message_success','Product updated Successfully!');
-        
+        }
+            return view('admin.products.edit')->with(compact('productsDetails','categories_dropdown'));
         }
        
-        return view('admin.products.edit')->with(compact('productsDetails','categories_dropdown'));
+       
 
-    }
 
     public function deleteProducts($id = null){
         Product::where(['id'=>$id])->delete();
@@ -152,14 +154,26 @@ class ProductsController extends Controller
     }
 
     public function newAttributes(Request $request, $id=null){
-        $productsDetails=Product::with('attributes')->where(['id'=>$id])->first();
+        $productsDetails=Product::where(['id'=>$id])->with('attributes')->first();
         /*$productsDetails=json_decode(json_encode($productsDetails)); */
 
         if($request->isMethod('post')){
             $data=$request->all();
            // echo "<pre>"; print_r($data); die;
+
             foreach ($data['sku'] as $key => $val) {
                 if(!empty($val)){
+                    // Prevent duplicate SKU Check
+                    $attrCountSKU = productsAttribute::where('sku',$val)->count();
+                    if($attrCountSKU>0){
+                         return redirect('/admin/product-attributes/newAtrributes/'.$id)->with('flash_message_error', 'SKU already exist! Please add another SKU.');
+                    }
+
+                    //Prevent duplicate Size Check
+                    $attrCountSizes = productsAttribute::where(['product_id'=>$id, 'size'=>$data['size'][$key]])->count();
+                    if($attrCountSizes>0){
+                        return redirect('/admin/product-attributes/newAtrributes/'.$id)->with('flash_message_error', 'Size already exist! Please add another Size.');
+                    }
                 $attribute = new productsAttribute;
                 $attribute->product_id = $id;
                 $attribute->sku = $val;
@@ -178,18 +192,113 @@ class ProductsController extends Controller
 
     }
 
-     public function attributes(Request $request){
-         $attributes = productsAttribute::get();
-         
-        return view('admin.product-attributes.index')->with(compact('attributes'));
+    public function editAttributes(Request $request, $id=null){
+         if($request->isMethod('post')){
+            $data = $request->all();
+            foreach ($data['idAttr'] as $key => $attr) {
+                productsAttribute::where(['id'=>$data['idAttr'][$key]])->update(['price_retail'=>$data['price_retail'][$key],'price_reseller'=>$data['price_reseller'][$key],'profit'=>$data['profit'][$key],'stock'=>$data['stock'][$key]]);
+            }
+            return redirect()->back()->with('flash_message_success', 'Product Attributes has been updated Successfully!');
+         }
     }
 
     public function deleteAttributes($id = null){
-        productsAttribute::where(['id'=>$id])->deleted();
-        return redirect()->back()->with('flash_message_success','Attribute has been deleted succsessfully!');
+        $productsDetails=Product::where(['id'=>$id])->with('attributes')->first();
+        ProductsAttribute::where(['id'=>$id])->delete();
+        return redirect('/admin/products-attributes/deleteAttributes/'.$id)->with(compact('productsDetails'),'flash_message_success','Attribute has been deleted succsessfully!');
     }
 
+    public function listproducts($url = null){
+        if(!Session::get('login')){
+            return redirect('login')->with('alert','Kamu Harus Login');
+        }
+        else{
+        //Get all Categories and sub Categories
+        $categories = Category::with('categories')->where(['id_parent'=>0])->get();
+
+        $categoryDetails = Category::where(['url' => $url])->first();
+
+        if($categoryDetails->id_parent==0){
+            //if url is main category url
+            $subCategories = Category::where(['id_parent'=>$categoryDetails->id])->get();
+            foreach ($subCategories as $subcat) {
+                $cat_ids[] = $subcat->id;
+            }
+            $productsAll = Product::whereIn('id_category',$cat_ids)->get();
+            $productsAll = json_decode(json_encode($productsAll));
+        }else{
+             $productsAll = Product::where(['id_category' => $categoryDetails->id])->get();
+        }
+       
+        return view('products.listing')->with(compact('categoryDetails','productsAll','categories'));
+        }
+    }
+
+    public function product($id=null){
+        if(!Session::get('login')){
+            return redirect('login')->with('alert','Kamu Harus Login');
+        }
+        else{
+        //Get all Categories and sub Categories
+        $categories = Category::with('categories')->where(['id_parent'=>0])->get();
+
+        $total_stock = productsAttribute::where('product_id',$id)->sum('stock');
 
 
+        //Get Product Details
+        $productsDetails = Product::with('attributes')->where('id',$id)->first();
+        $productsDetails = json_decode(json_encode($productsDetails));
+        /*echo "<pre>"; print_r($productsDetails); die;*/
+
+        //Get Dropshipper id
+
+       
+        return view('Products.detail')->with(compact('productsDetails','categories', 'total_stock','post'));
+        }
+    }
+
+    public function getProductPrice(Request $request){
+        $data = $request->all();
+        $proArr = explode("-", $data['idSize']);
+        $proAttr = ProductsAttribute::where(['product_id' => $proArr[0], 'size' => $proArr[1]])->first();
+        //arr[0]
+          echo "<div class='table-responsive'>
+                                        <table class='table table-bordered'>
+                                          <thead>
+                                            <tr>
+                                              <th>
+                                               Harga Retail
+                                              </th>
+                                              <th>
+                                                Harga Dropshipper
+                                              </th>
+                                              <th>
+                                                Keuntungan
+                                              </th>
+                                            </tr>
+                                          </thead>
+                                          <tbody>
+                                           <tr>
+                                              <td>Rp {$proAttr->price_retail}</td>
+                                              <td>Rp {$proAttr->price_reseller}</td>
+                                              <td>Rp {$proAttr->profit}</td>
+                                            </tr> 
+                                          </tbody>
+                                        </table>
+                                      </div>";
+             echo "#";
+             //arr[1]
+             echo $proAttr->price_retail;
+             echo "#";
+             //arr[2]
+             echo $proAttr->price_reseller;
+             echo "#";
+             //arr[3]
+             echo $proAttr->profit;
+              echo "#";
+             //arr[4]
+              echo $proAttr->stock;
+
+    }
 
 }

@@ -5,6 +5,10 @@ use Illuminate\Http\Request;
 use Auth;
 use Session;
 use App\User;
+use App\Product;
+use App\Sale;
+use App\UserDropshipper;
+use App\Customer;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -26,7 +30,11 @@ class AdminController extends Controller
 
     //Dasboard
     public function dashboard(){
-        return view('admin.dashboard');
+        $products = Product::count();
+        $sales = Sale::count();
+        $dropshipper = UserDropshipper::count();
+        $customers = Customer::count();
+        return view('admin.dashboard')->with(compact('products','sales','dropshipper','customers'));;
     }
 
     //Change Password

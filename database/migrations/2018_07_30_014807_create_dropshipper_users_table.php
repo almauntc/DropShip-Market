@@ -19,6 +19,10 @@ class CreateDropshipperUsersTable extends Migration
             $table->string('password');
             $table->string('name');
             $table->string('handphone',100)->unique();
+            $table->string('address');
+            $table->string('bank_account_number');
+            $table->string('bank_account_name');
+            $table->string('name_bank');
             $table->rememberToken();
             $table->timestamps();
         });

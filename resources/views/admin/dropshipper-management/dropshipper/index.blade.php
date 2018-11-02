@@ -30,13 +30,7 @@
                          Search</i></button></span>                  
                       </div>
                      </div>
-
-                     
-                     <a href="{{ url('/admin/dropshipper-management/dropshipper/newDropshipper') }}"><button class="btn btn-success btn-block col-lg-3">New Dropshipper
-                      <i class="mdi mdi-plus"></i>
-                    </button></a>
-                    </button>
-                 <br>
+                    <br>
                  
                   <div class="table-responsive">
                     <table class="table table-bordered">
@@ -46,7 +40,7 @@
                             #
                           </th>
                           <th>
-                            Name Dropshipper
+                            Dropshipper Name
                           </th>
                           <th>
                             Phone Number
@@ -68,15 +62,15 @@
                           <td>{{ $dropshipper->email}}</td>
                           <td>
                             <div class="hidden-sm hidden-xs btn-group">
-                             <a href="">
-                              <button class="btn btn-xs btn-info">
-                                <b><i>Edit</i></b>
+                             <a href="{{url('/admin/dropshipper-management/dropshipper/deleteDropship/'.$dropshipper->id)}}">
+                              <button class="btn btn-xs btn-danger">
+                                <b>✘</b>
                               </button></a>
 
                               <i class="text-white">..</i>
-                              <a href="">
-                              <button class="btn btn-xs btn-danger">
-                                <b><i>Delete</i></b>
+                              <a href="{{url('/admin/dropshipper-management/dropshipper/editProduct/'.$dropshipper->id)}}">
+                              <button class="btn btn-xs btn-info">
+                                <b><i>Info</i></b>
                               </button></a>
                             </div>      
                           </td>

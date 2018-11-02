@@ -21,7 +21,7 @@
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('css/backend_css/style.css') }}">
   <!-- endinject -->
-  <link rel="shortcut icon" href="{{ asset('images/backend_images/favicon.png') }}" />
+  <link rel="shortcut icon" href="{{ asset('images/frontend_images/logo.png') }}" />
   <style>
    .card-weather .card-body:first-child {
       background: url("{{ asset('images/backend_images/samples/weather.svg') }}") no-repeat center;

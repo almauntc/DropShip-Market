@@ -17,11 +17,9 @@
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="{{ asset('images/frontend_images/ico/favicon.ico') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ asset('images/frontend_images/ico/apple-touch-icon-144-precomposed.png')}}">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ asset('images/frontend_images/ico/apple-touch-icon-114-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="{{ asset('images/frontend_images/ico/apple-touch-icon-72-precomposed.png') }}">
-    <link rel="apple-touch-icon-precomposed" href="{{ asset('images/frontend_images/ico/apple-touch-icon-57-precomposed.png') }}">
+    <link rel="shortcut icon" href="{{ asset('images/frontend_images/logo.png') }}">
+      
+
 </head><!--/head-->
 
 <body>
@@ -40,3 +38,43 @@
     <script src="{{ asset('js/frontend_js/main.js') }}"></script>
 </body>
 </html>
+<script type="text/javascript">
+
+    $(document).ready(function(){
+        $('#provinsi').change(function(){
+
+            //Mengambil value dari option select provinsi kemudian parameternya dikirim menggunakan ajax
+            var prov = $('#provinsi').val();
+
+            $.ajax({
+                type : 'GET',
+                url : '/cek_kabupaten',
+                data :  'prov_id=' + prov,
+                    success: function (data) {
+
+                    //jika data berhasil didapatkan, tampilkan ke dalam option select kabupaten
+                    $("#kabupaten").html(data);
+                }
+            });
+        });
+
+        $("#cek").click(function(){
+            //Mengambil value dari option select provinsi asal, kabupaten, kurir, berat kemudian parameternya dikirim menggunakan ajax
+            var asal = $('#asal').val();
+            var kab = $('#kabupaten').val();
+            var kurir = $('#kurir').val();
+            var berat = $('#berat').val();
+
+            $.ajax({
+                type : 'POST',
+                url : '/cek_ongkir',
+                data :  {'kab_id' : kab, 'kurir' : kurir, 'asal' : asal, 'berat' : berat},
+                    success: function (data) {
+
+                    //jika data berhasil didapatkan, tampilkan ke dalam element div ongkir
+                    $("#ongkir").html(data);
+                }
+            });
+        });
+    });
+</script>

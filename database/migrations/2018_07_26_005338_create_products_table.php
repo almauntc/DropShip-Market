@@ -19,7 +19,6 @@ class CreateProductsTable extends Migration
             $table->string('name_product');
             $table->string('code_product');
             $table->string('color_product');
-            $table->string('stok');
             $table->text('desc');
             $table->float('price_retail');
             $table->float('price_reseller');

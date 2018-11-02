@@ -40,10 +40,6 @@
                           <input type="text" value="{{ @$productsDetails->color_product }}"class="form-control" name="color_product" id="color_product" required class="form-control" placeholder="">
                         </div>
                         <div class="form-group">
-                          <label for="stok">Stock</label>
-                          <input type="text" value="{{ @$productsDetails->stok }}"class="form-control" name="stok" id="stok" required class="form-control" placeholder="">
-                        </div>
-                        <div class="form-group">
                           <label for="desc">Description</label>
                           <textarea type="text" value="{{ @$productsDetails->desc }}" class="form-control" name="desc" id="desc" required class="form-control" placeholder=""></textarea>
                         </div>

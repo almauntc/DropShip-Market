@@ -43,9 +43,6 @@
                       <thead>
                         <tr>
                           <th>
-                            #
-                          </th>
-                          <th>
                             ID Category
                           </th>
                           <th>
@@ -71,7 +68,6 @@
                       <tbody>
                          @foreach($product as $product)
                        <tr>
-                          <td>{{ $product->id}}</td>
                           <td>{{ $product->id_category}}</td>
                           <td>{{ $product->code_product}}</td>
                           <td>{{ $product->name_product}}</td>
@@ -91,7 +87,7 @@
 
                               <i class="text-white">..</i>
                               <a href="{{ url('/admin/products/deleteProducts/' .$product->id) }}">
-                              <button class="btn btn-xs btn-danger">
+                              <button id="delPro" class="btn btn-xs btn-danger">
                                 <b><i>Delete</i></b>
                               </button></a>
 
